@@ -18,7 +18,9 @@ CLO
 N
 
 
-INPUT
+INPUT  #changing date in calpost.inp
+
+
 python3 calpost_r16.py<<INPUT
 CALM
 
@@ -31,5 +33,5 @@ calmet_l2
 calmet.inp
 
 
-INPUT
+INPUT  #changing date in calmet.inp
 
