@@ -8,7 +8,28 @@ have to look at the main script what question are asked for a given program and 
 
 Explanation how to create shell script:
 
-https://github.com/KamilKasz/Calpuff-date-change/blob/c0dd929ab04bee6adad52b2c384d4ebb5ea94758/example.sh#LL3C1-L22C1
+``` shell
+python3 calpost_r16.py<<INPUT
+CLO
+
+2006
+10
+13
+
+
+
+2009
+11
+13
+
+
+
+N
+
+
+INPUT  #changing date in calpost.inp
+
+```
 
 So in this case we want to change input of CALMET file
 
