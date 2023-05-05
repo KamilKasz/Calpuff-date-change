@@ -6,9 +6,11 @@ Python script that allows to modify dates of input files of modules of CALMET/CA
 Right now it is not possible to change files from the whole package (CALMET, CALPUFF, PRTMET etc.) at one time, but it could be done by example with the use of shell script. Script example.sh shows how to do it. Im general: you
 have to look at the main script what question are asked for a given program and then in every line gave answers to them. Thisc is just a temporary solution, hopefully soon it won't be necessary. 
 
-Explanation how co create shell script:
+Explanation how to create shell script:
 
 https://github.com/KamilKasz/Calpuff-date-change/blob/c0dd929ab04bee6adad52b2c384d4ebb5ea94758/example.sh#LL3C1-L22C1
+
+So in this case we want to change input of CALMET file
 
 Future plans:
 - Improving structure of the code (creating more functions for example)
