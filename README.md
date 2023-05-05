@@ -7,6 +7,7 @@ Right now it is not possible to change files from the whole package (CALMET, CAL
 have to look at the main script what question are asked for a given program and then in every line gave answers to them. Thisc is just a temporary solution, hopefully soon it won't be necessary. 
 
 Explanation how co create shell script:
+
 python3 calpost_r16.py<<INPUT
 CLO
 
