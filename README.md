@@ -8,25 +8,7 @@ have to look at the main script what question are asked for a given program and 
 
 Explanation how co create shell script:
 
-python3 calpost_r16.py<<INPUT
-CLO
-
-2006
-10
-13
-
-
-
-2009
-11
-13
-
-
-
-N
-
-
-INPUT 
+https://github.com/KamilKasz/Calpuff-date-change/blob/be618364711f1bbc92c6b5b7e975dc8ecd10bd94/example.sh#LL2C1-L21C6
 
 Future plans:
 - Improving structure of the code (creating more functions for example)
