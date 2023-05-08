@@ -10,7 +10,7 @@ CALMET/CALPUFF system (CALMET, CALPUFF, PRTMET, ). More information in a readme 
 
 from subprocess import Popen, PIPE
 import os
-import shutil  # importing modules
+import shutil  
 from datetime import datetime
 import fileinput
 from os import path
