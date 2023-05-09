@@ -25,13 +25,13 @@ CLO
 
 
 N
-
-
+calpost.inp
+calpost.inp1
 INPUT  #changing date in calpost.inp
 
 ```
 
-So in this case we want to change input of CALMET file
+So in this case we want to change input of CALPUFF file (so the answer to question: "Do you want to change input of Calmet (write 'CALM'), Calpost (write 'CLO'), Calpuff (write 'CLF'), "                 "PRTMET (write 'PRT'), default 'CLO''" is CLO, although it could be left empty), next is the question about path to base file, we are keeping current path so we skip it, then we are giving answers about starting date. Next three skips are about hours, minutes and seconds, because we are keeping them at default value 00. The same procedure works for ending date and as we don't want to delete old files, we are answering "no". "calpost.inp" is the name of the file we are modyfing, "calpost.inp1" is the name of the file we are creating. 
 
 Future plans:
 - Improving structure of the code (creating more functions for example)
