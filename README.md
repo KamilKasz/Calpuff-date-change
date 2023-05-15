@@ -38,5 +38,6 @@ Current script works well with the version of CALMET/CALPUFF approved for US-EPA
 Future plans:
 - Improving the structure of the code 
 - Adding the posibility to change multiple files at once
-- Making the script working correctly for all versions of Calmet/Calpuff 
+- Making the script working correctly for all versions of Calmet/Calpuff
+- Add usage of prompt_toolkit so it would be easier to use scriptr in the terminal 
 - Create a GUI
