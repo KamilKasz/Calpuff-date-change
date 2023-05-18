@@ -261,27 +261,13 @@ def ch_date(sig):
             result["mon_beg"] = mon_beg
             result["day_beg"] = day_beg
             result["hr_beg"] = hr_beg
-            result["min_beg"] = min_beg
-            result["sec_beg"] = sec_beg
-            result["year_end"] = year_end
-            result["mon_end"] = mon_end
-            result["day_end"] = day_end
-            result["hr_end"] = hr_end
-            result["min_end"] = min_end
-            result["sec_end"] = sec_end
             result["YEAR"] = YEAR
             result["MONTH"] = MONTH
             result["DAY"] = DAY
             result["HR"] = HR
-            result["MIN"] = MIN
-            result["SEC"] = SEC
-            result["EYEAR"] = EYEAR
-            result["EMONTH"] = EMONTH
-            result["EDAY"] = EDAY
-            result["EHR"] = EHR
-            result["EMIN"] = EMIN
-            result["ESEC"] = ESEC
+            print(result["year_beg"])
 
+            return result
         if sig == "PRT":
             print("Please name date of beginning of calculations")
             YEAR = input("Specify year (four numbers)")
@@ -310,35 +296,30 @@ def ch_date(sig):
             result["mon_beg"] = mon_beg
             result["day_beg"] = day_beg
             result["hr_beg"] = hr_beg
-            result["min_beg"] = min_beg
-            result["sec_beg"] = sec_beg
             result["year_end"] = year_end
             result["mon_end"] = mon_end
             result["day_end"] = day_end
             result["hr_end"] = hr_end
-            result["min_end"] = min_end
-            result["sec_end"] = sec_end
             result["YEAR"] = YEAR
             result["MONTH"] = MONTH
             result["DAY"] = DAY
             result["HR"] = HR
-            result["MIN"] = MIN
-            result["SEC"] = SEC
             result["EYEAR"] = EYEAR
             result["EMONTH"] = EMONTH
             result["EDAY"] = EDAY
             result["EHR"] = EHR
-            result["EMIN"] = EMIN
-            result["ESEC"] = ESEC
 
+            return result
     except ValueError:
         print("Wrong date, try again")
         continue
- return result
+ #return result
 
 
 
 date_values = ch_date(sig)
+
+print(date_values)
 
 year_beg = date_values["year_beg"]
 mon_beg = date_values["mon_beg"]
@@ -456,119 +437,33 @@ with open(patht + name_of, "r") as file:
 # Finding dates and replacing them
 
 
-year_match = re.search(year_beg + r"\s*=\s*(\d+)", contents)
-if year_match:
-    old_year = int(year_match.group(1))
-    contents = re.sub(year_beg + r"\s*=\s*\d+", f"{year_beg} = {YEAR}", contents)
-
-month_match = re.search(mon_beg + r"\s*=\s*(\d+)", contents)
-if month_match:
-    old_month = int(month_match.group(1))
-    contents = re.sub(mon_beg + r"\s*=\s*\d+", f"{mon_beg} = {MONTH}", contents)
-
-day_match = re.search(day_beg + r"\s*=\s*(\d+)", contents)
-if day_match:
-    old_day = int(month_match.group(1))
-    contents = re.sub(day_beg + r"\s*=\s*\d+", f"{day_beg} = {DAY}", contents)
-
-hr_match = re.search(hr_beg + r"\s*=\s*(\d+)", contents)
-if hr_match:
-    old_hr = int(month_match.group(1))
-    contents = re.sub(hr_beg + r"\s*=\s*\d+", f"{hr_beg} = {HR}", contents)
-    
-if MIN is not None:
-    try:
-        min_match = re.search(min_beg + r"\s*=\s*(\d+)", contents)
-
-        if min_match:
-           # old_sec = int(sec_match.group(1))
-            old_min = int(min_match.group(1))
-            contents = re.sub(min_beg + r"\s*=\s*\d+", f"{min_beg} = {MIN}", contents)
-    except NameError:
-     pass
-
-if SEC is not None:
-    try:
-        sec_match = re.search(sec_beg + r"\s*=\s*(\d+)", contents)
-
-        if sec_match:
-            old_sec = int(sec_match.group(1))
-            contents = re.sub(sec_beg + r"\s*=\s*\d+", f"{sec_beg} = {SEC}", contents)
-    except NameError:
-     pass
-print(year_beg)
+from collections import OrderedDict
+import re
 
 
+replace_dict = OrderedDict([
+    ('year_beg', 'YEAR'),
+    ('mon_beg', 'MONTH'),
+    ('day_beg', 'DAY'),
+    ('hr_beg', 'HR'),
+    ('min_beg', 'MIN'),
+    ('sec_beg', 'SEC'),
+    ('year_end', 'EYEAR'),
+    ('mon_end', 'EMONTH'),
+    ('day_end', 'EDAY'),
+    ('hr_end', 'EHR'),
+    ('min_end', 'EMIN'),
+    ('sec_end', 'ESEC'),
+])
 
-if EYEAR is not None:
-    try:
-        yeare_match = re.search(year_end + r"\s*=\s*(\d+)", contents)
-
-        if yeare_match:
-            old_year = int(yeare_match.group(1))
-            contents = re.sub(year_end + r"\s*=\s*\d+", f"{year_end} = {EYEAR}", contents)
-    except NameError:
-     pass
-
-
-if EMONTH is not None:
-    try:
-        monthe_match = re.search(mon_end + r"\s*=\s*(\d+)", contents)
-
-        if monthe_match:
-            old_month = int(monthe_match.group(1))
-            contents = re.sub(mon_end + r"\s*=\s*\d+", f"{mon_end} = {EMONTH}", contents)
-    except NameError:
-     pass
-
-
-if EDAY is not None:
-    try:
-        daye_match = re.search(day_end + r"\s*=\s*(\d+)", contents)
-
-        if daye_match:
-            old_day = int(daye_match.group(1))
-            contents = re.sub(day_end + r"\s*=\s*\d+", f"{day_end} = {EDAY}", contents)
-    except NameError:
-     pass
-
-
-
-if EHR is not None:
-    try:
-        hre_match = re.search(hr_end + r"\s*=\s*(\d+)", contents)
-
-        if hre_match:
-            old_hour = int(hre_match.group(1))
-            contents = re.sub(hr_end + r"\s*=\s*\d+", f"{hr_end} = {EHR}", contents)
-    except NameError:
-     pass
-
-
-
-
-if EMIN is not None:
-    try:
-        mine_match = re.search(min_end + r"\s*=\s*(\d+)", contents)
-
-        if mine_match:
-            old_min = int(mine_match.group(1))
-            contents = re.sub(min_end + r"\s*=\s*\d+", f"{min_end} = {EMIN}", contents)
-    except NameError:
-     pass
-
-
-
-if ESEC is not None:
-    try:
-        sece_match = re.search(sec_end + r"\s*=\s*(\d+)", contents)
-
-        if sece_match:
-            old_sec = int(sece_match.group(1))
-            contents = re.sub(sec_end + r"\s*=\s*\d+", f"{sec_end} = {ESEC}", contents)
-    except NameError:
-     pass
-
+for beg, replacement in replace_dict.items():
+    match = re.search(f"{globals()[beg]}\s*=\s*(\d+)", contents)
+    if match:
+        print(f"Found match for {globals()[beg]}, replacing...")
+        old_value = int(match.group(1))
+        contents = re.sub(f"{globals()[beg]}\s*=\s*\d+", f"{globals()[beg]} = {globals()[replacement]}", contents)
+    else:
+        print(f"No match found for {globals()[beg]}.")
 
 
 
