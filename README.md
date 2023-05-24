@@ -1,5 +1,5 @@
 # Calpuff-date-change
-Current version: 0.2.0
+Current version: 0.2.1
 
 Python script that allows to modify dates of input files of modules of CALMET/CALPUFF model, by using date provided by user. Just run this program using the Python interpreter. At the moment you can only use it to calcluate.
 
