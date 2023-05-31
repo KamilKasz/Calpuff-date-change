@@ -310,8 +310,9 @@ def ch_date(sig):
             result["EHR"] = EHR
 
             return result
-    except ValueError:
+    except ValueError as Ve:
         print("Wrong date, try again")
+        print(f"ERROR: {Ve}")
         continue
  #return result
 
