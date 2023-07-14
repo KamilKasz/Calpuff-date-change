@@ -14,6 +14,8 @@ from datetime import datetime
 import fileinput
 from os import path
 import re
+from collections import OrderedDict
+
 
 # Defining function that allows user to choose whether he wants to replace existing file or to create new
 
@@ -109,6 +111,7 @@ calmet = {
     "MONTH": "IBMO",
     "DAY": "IBDY",
     "HR": "IBHR",
+    "DR": "IRLG"
 }
 
 calpuff = {
@@ -138,7 +141,7 @@ def ch_date(sig):
         "day_end": None, "hr_end": None, "min_end": None, "sec_end": None, 
         "YEAR": None, "MONTH": None, "DAY": None, "HR": None, "MIN": None, 
         "SEC": None, "EYEAR": None, "EMONTH": None, "EDAY": None, 
-        "EHR": None, "EMIN": None, "ESEC": None
+        "EHR": None, "EMIN": None, "ESEC": None, "DR": None
     }
 
 
@@ -228,21 +231,32 @@ def ch_date(sig):
             MONTH = input("Specify month (two numbers)")
             DAY = input("Specify day (two numbers)")
             HR = input("Hour (default: 00)") or "00"
+            DR = input("Name duration of calculations") or "50"
+            try:
+              int(DR)
+            except:
+               print("Duration has to be an integer")
+               continue
             date_time_str = YEAR + " " + MONTH + " " + DAY + " " + HR
             date_time_obj = datetime.strptime(date_time_str, "%Y %m %d %H")
             year_beg = calmet.get("YEAR")
             mon_beg = calmet.get("MONTH")
             day_beg = calmet.get("DAY")
             hr_beg = calmet.get("HR")
+            duration = calmet.get("DR")
+          #  dr = calmet.get("DR") 
             result["year_beg"] = year_beg
             result["mon_beg"] = mon_beg
             result["day_beg"] = day_beg
             result["hr_beg"] = hr_beg
+            result["duration"] = duration
  
             result["YEAR"] = YEAR
             result["MONTH"] = MONTH
             result["DAY"] = DAY
             result["HR"] = HR
+            result["DR"] = DR
+
 
             return result
         if sig == "CLF":
@@ -346,7 +360,8 @@ EDAY = date_values["EDAY"]
 EHR = date_values["EHR"]
 EMIN = date_values["EMIN"]
 ESEC = date_values["ESEC"]
-
+DR = date_values["DR"]
+duration = date_values["duration"]
 
 
 
@@ -438,8 +453,6 @@ with open(patht + name_of, "r") as file:
 # Finding dates and replacing them
 
 
-from collections import OrderedDict
-import re
 
 
 replace_dict = OrderedDict([
@@ -455,6 +468,8 @@ replace_dict = OrderedDict([
     ('hr_end', 'EHR'),
     ('min_end', 'EMIN'),
     ('sec_end', 'ESEC'),
+    ('duration', 'DR'),
+
 ])
 
 for beg, replacement in replace_dict.items():
