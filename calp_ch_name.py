@@ -119,6 +119,7 @@ calpuff = {
     "MONTH": "IBMO",
     "DAY": "IBDY",
     "HR": "IBHR",
+    "DR": "IRLG"
 }
 
 prtmet = {
@@ -265,20 +266,29 @@ def ch_date(sig):
             MONTH = input("Specify month (two numbers)")
             DAY = input("Specify day (two numbers)")
             HR = input("Hour (default: 00)") or "00"
+            DR = input("Name duration of calculations") or "50"
+            try:
+              int(DR)
+            except:
+               print("Duration has to be an integer")
+               continue
             date_time_str = YEAR + " " + MONTH + " " + DAY + " " + HR
             date_time_obj = datetime.strptime(date_time_str, "%Y %m %d %H")
             year_beg = calpuff.get("YEAR")
             mon_beg = calpuff.get("MONTH")
             day_beg = calpuff.get("DAY")
             hr_beg = calpuff.get("HR")
+            duration = calpuff.get("DR")
             result["year_beg"] = year_beg
             result["mon_beg"] = mon_beg
             result["day_beg"] = day_beg
             result["hr_beg"] = hr_beg
+            result["duration"] = duration
             result["YEAR"] = YEAR
             result["MONTH"] = MONTH
             result["DAY"] = DAY
             result["HR"] = HR
+            result["DR"] = DR
             print(result["year_beg"])
 
             return result
