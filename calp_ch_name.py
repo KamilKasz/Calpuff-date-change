@@ -111,7 +111,15 @@ calmet = {
     "MONTH": "IBMO",
     "DAY": "IBDY",
     "HR": "IBHR",
-    "DR": "IRLG"
+    "DR": "IRLG",
+    "SEC": "IBSEC",
+
+    "EYEAR": "IEYR",
+    "EMONTH": "IEMO",
+    "EDAY": "IEDY",
+    "EHR": "IEHR",
+    "EMIN": "IEMIN",
+    "ESEC": "IESEC",
 }
 
 calpuff = {
@@ -119,7 +127,14 @@ calpuff = {
     "MONTH": "IBMO",
     "DAY": "IBDY",
     "HR": "IBHR",
-    "DR": "IRLG"
+    "DR": "IRLG",
+
+    "EYEAR": "IEYR",
+    "EMONTH": "IEMO",
+    "EDAY": "IEDY",
+    "EHR": "IEHR",
+    "EMIN": "IEMIN",
+    "ESEC": "IESEC",
 }
 
 prtmet = {
@@ -131,6 +146,12 @@ prtmet = {
     "EMONTH": "IEMO",
     "EDAY": "IEDY",
     "EHR": "IEHR",
+    "EYEAR": "IEYR",
+    "EMONTH": "IEMO",
+    "EDAY": "IEDY",
+    "EHR": "IEHR",
+    "EMIN": "IEMIN",
+    "ESEC": "IESEC",
 }
 
 # Getting information about dates
@@ -190,7 +211,7 @@ def ch_date(sig):
             date_time_str = (
                     EYEAR + " " + EMONTH + " " + EDAY + " " + EHR + " " + EMIN + " " + ESEC
             )
-            date_time_obj = datetime.strptime(date_time_str, "%Y %m %d %H %M %S")
+            date_time_obj2 = datetime.strptime(date_time_str, "%Y %m %d %H %M %S")
             year_end = calpost.get("EYEAR")
             mon_end = calpost.get("EMONTH")
             day_end = calpost.get("EDAY")
@@ -221,117 +242,260 @@ def ch_date(sig):
             result["EHR"] = EHR
             result["EMIN"] = EMIN
             result["ESEC"] = ESEC
+            date_time_obj3=(date_time_obj2-date_time_obj)
+            date_time_obj3=date_time_obj3.total_seconds()
+            print(date_time_obj3)
+            print(date_time_obj3/3600)
+            result["DR"] = str((date_time_obj3/3600))
+            duration = calpost.get("DR")
 
-
+            result["duration"] = duration
             return result
             
             #continue
         if sig == "CALM":
             print("Please name date of beginning of calculations")
+            # DATE=input("patht to directory with source files")
             YEAR = input("Specify year (four numbers)")
             MONTH = input("Specify month (two numbers)")
             DAY = input("Specify day (two numbers)")
-            HR = input("Hour (default: 00)") or "00"
-            DR = input("Name duration of calculations") or "50"
-            try:
-              int(DR)
-            except:
-               print("Duration has to be an integer")
-               continue
-            date_time_str = YEAR + " " + MONTH + " " + DAY + " " + HR
-            date_time_obj = datetime.strptime(date_time_str, "%Y %m %d %H")
+            HR = input("Specify hour (default: 00)") or "00"
+            MIN = input("Specify minutes (default: 00)") or "00"
+            SEC = input("Specify seconds (default: 00") or "00"
+
+            date_time_str = (
+                    YEAR + " " + MONTH + " " + DAY + " " + HR + " " + MIN + " " + SEC
+            )
+            date_time_obj = datetime.strptime(date_time_str, '%Y %m %d %H %M %S')  # created to check if given date
+            # is acceptable
+            drbeg=date_time_obj 
             year_beg = calmet.get("YEAR")
             mon_beg = calmet.get("MONTH")
             day_beg = calmet.get("DAY")
             hr_beg = calmet.get("HR")
-            duration = calmet.get("DR")
-          #  dr = calmet.get("DR") 
-            result["year_beg"] = year_beg
-            result["mon_beg"] = mon_beg
-            result["day_beg"] = day_beg
-            result["hr_beg"] = hr_beg
-            result["duration"] = duration
- 
-            result["YEAR"] = YEAR
-            result["MONTH"] = MONTH
-            result["DAY"] = DAY
-            result["HR"] = HR
-            result["DR"] = DR
-
-
-            return result
-        if sig == "CLF":
-            print("Please name date of beginning of calculations")
-            YEAR = input("Specify year (four numbers)")
-            MONTH = input("Specify month (two numbers)")
-            DAY = input("Specify day (two numbers)")
-            HR = input("Hour (default: 00)") or "00"
-            DR = input("Name duration of calculations") or "50"
-            try:
-              int(DR)
-            except:
-               print("Duration has to be an integer")
-               continue
-            date_time_str = YEAR + " " + MONTH + " " + DAY + " " + HR
-            date_time_obj = datetime.strptime(date_time_str, "%Y %m %d %H")
-            year_beg = calpuff.get("YEAR")
-            mon_beg = calpuff.get("MONTH")
-            day_beg = calpuff.get("DAY")
-            hr_beg = calpuff.get("HR")
-            duration = calpuff.get("DR")
-            result["year_beg"] = year_beg
-            result["mon_beg"] = mon_beg
-            result["day_beg"] = day_beg
-            result["hr_beg"] = hr_beg
-            result["duration"] = duration
-            result["YEAR"] = YEAR
-            result["MONTH"] = MONTH
-            result["DAY"] = DAY
-            result["HR"] = HR
-            result["DR"] = DR
-            print(result["year_beg"])
-
-            return result
-        if sig == "PRT":
-            print("Please name date of beginning of calculations")
-            YEAR = input("Specify year (four numbers)")
-            MONTH = input("Specify month (two numbers)")
-            DAY = input("Specify day (two numbers)")
-            HR = input("Hour (default: 00)") or "00"
-            date_time_str = YEAR + " " + MONTH + " " + DAY + " " + HR
-            date_time_obj = datetime.strptime(date_time_str, "%Y %m %d %H")
-            year_beg = prtmet.get("YEAR")
-            mon_beg = prtmet.get("MONTH")
-            day_beg = prtmet.get("DAY")
-            hr_beg = prtmet.get("HR")
+            min_beg = calmet.get("MIN")
+            sec_beg = calmet.get("SEC")
+            
             print("Please name date of the end of calculations")
             EYEAR = input("Specify year (four numbers)")
             EMONTH = input("Specify month (two numbers)")
             EDAY = input("Specify day (two numbers)")
             EHR = input("Specify hour (default: 00)") or "00"
+            EMIN = input("Specify minutes (default: 00)") or "00"
+            ESEC = input("Specify seconds (default: 00") or "00"
 
-            date_time_str = EYEAR + " " + EMONTH + " " + EDAY + " " + EHR
-            date_time_obj = datetime.strptime(date_time_str, "%Y %m %d %H")
-            year_end = calpost.get("EYEAR")
-            mon_end = calpost.get("EMONTH")
-            day_end = calpost.get("EDAY")
-            hr_end = calpost.get("EHR")
+            date_time_str = (
+                    EYEAR + " " + EMONTH + " " + EDAY + " " + EHR + " " + EMIN + " " + ESEC
+            )
+            date_time_obj2 = datetime.strptime(date_time_str, "%Y %m %d %H %M %S")
+            #drend=date_time_obj
+            #DR=drend-drbeg
+            #total_seconds = DR.total_seconds()
+            #hours = total_seconds // 3600
+        #    print(hours)
+           # DR=int(hours)
+            year_end = calmet.get("EYEAR")
+            mon_end = calmet.get("EMONTH")
+            day_end = calmet.get("EDAY")
+            hr_end = calmet.get("EHR")
+            min_end = calmet.get("EMIN")
+            sec_end = calmet.get("ESEC")
             result["year_beg"] = year_beg
             result["mon_beg"] = mon_beg
             result["day_beg"] = day_beg
             result["hr_beg"] = hr_beg
+            result["min_beg"] = min_beg
+            result["sec_beg"] = sec_beg
             result["year_end"] = year_end
             result["mon_end"] = mon_end
             result["day_end"] = day_end
             result["hr_end"] = hr_end
+            result["min_end"] = min_end
+            result["sec_end"] = sec_end
             result["YEAR"] = YEAR
             result["MONTH"] = MONTH
             result["DAY"] = DAY
             result["HR"] = HR
+            result["MIN"] = MIN
+            result["SEC"] = SEC
             result["EYEAR"] = EYEAR
             result["EMONTH"] = EMONTH
             result["EDAY"] = EDAY
             result["EHR"] = EHR
+            result["EMIN"] = EMIN
+            result["ESEC"] = ESEC
+            date_time_obj3=(date_time_obj2-date_time_obj)
+            date_time_obj3=date_time_obj3.total_seconds()
+            print(date_time_obj3)
+            print(date_time_obj3/3600)
+            result["DR"] = str((date_time_obj3/3600))
+            duration = calmet.get("DR")
+            result["duration"] = duration
+
+
+            return result
+            return result
+        if sig == "CLF":
+            print("Please name date of beginning of calculations")
+            # DATE=input("patht to directory with source files")
+            YEAR = input("Specify year (four numbers)")
+            MONTH = input("Specify month (two numbers)")
+            DAY = input("Specify day (two numbers)")
+            HR = input("Specify hour (default: 00)") or "00"
+            MIN = input("Specify minutes (default: 00)") or "00"
+            SEC = input("Specify seconds (default: 00") or "00"
+
+            date_time_str = (
+                    YEAR + " " + MONTH + " " + DAY + " " + HR + " " + MIN + " " + SEC
+            )
+            date_time_obj = datetime.strptime(date_time_str, '%Y %m %d %H %M %S')  # created to check if given date
+            # is acceptable
+            drbeg=date_time_obj 
+            year_beg = calpuff.get("YEAR")
+            mon_beg = calpuff.get("MONTH")
+            day_beg = calpuff.get("DAY")
+            hr_beg = calpuff.get("HR")
+            min_beg = calpuff.get("MIN")
+            sec_beg = calpuff.get("SEC")
+            
+            print("Please name date of the end of calculations")
+            EYEAR = input("Specify year (four numbers)")
+            EMONTH = input("Specify month (two numbers)")
+            EDAY = input("Specify day (two numbers)")
+            EHR = input("Specify hour (default: 00)") or "00"
+            EMIN = input("Specify minutes (default: 00)") or "00"
+            ESEC = input("Specify seconds (default: 00") or "00"
+
+            date_time_str = (
+                    EYEAR + " " + EMONTH + " " + EDAY + " " + EHR + " " + EMIN + " " + ESEC
+            )
+            date_time_obj2 = datetime.strptime(date_time_str, "%Y %m %d %H %M %S")
+            #drend=date_time_obj
+            #DR=drend-drbeg
+            #total_seconds = DR.total_seconds()
+            #hours = total_seconds // 3600
+        #    print(hours)
+           # DR=int(hours)
+            year_end = calpuff.get("EYEAR")
+            mon_end = calpuff.get("EMONTH")
+            day_end = calpuff.get("EDAY")
+            hr_end = calpuff.get("EHR")
+            min_end = calpuff.get("EMIN")
+            sec_end = calpuff.get("ESEC")
+            result["year_beg"] = year_beg
+            result["mon_beg"] = mon_beg
+            result["day_beg"] = day_beg
+            result["hr_beg"] = hr_beg
+            result["min_beg"] = min_beg
+            result["sec_beg"] = sec_beg
+            result["year_end"] = year_end
+            result["mon_end"] = mon_end
+            result["day_end"] = day_end
+            result["hr_end"] = hr_end
+            result["min_end"] = min_end
+            result["sec_end"] = sec_end
+            result["YEAR"] = YEAR
+            result["MONTH"] = MONTH
+            result["DAY"] = DAY
+            result["HR"] = HR
+            result["MIN"] = MIN
+            result["SEC"] = SEC
+            result["EYEAR"] = EYEAR
+            result["EMONTH"] = EMONTH
+            result["EDAY"] = EDAY
+            result["EHR"] = EHR
+            result["EMIN"] = EMIN
+            result["ESEC"] = ESEC
+            date_time_obj3=(date_time_obj2-date_time_obj)
+            date_time_obj3=date_time_obj3.total_seconds()
+            print(date_time_obj3)
+            print(date_time_obj3/3600)
+            result["DR"] = str((date_time_obj3/3600))
+            duration = calpuff.get("DR")
+            result["duration"] = duration
+
+
+            return result
+            return result
+        if sig == "PRT":
+            print("Please name date of beginning of calculations")
+            # DATE=input("patht to directory with source files")
+            YEAR = input("Specify year (four numbers)")
+            MONTH = input("Specify month (two numbers)")
+            DAY = input("Specify day (two numbers)")
+            HR = input("Specify hour (default: 00)") or "00"
+            MIN = input("Specify minutes (default: 00)") or "00"
+            SEC = input("Specify seconds (default: 00") or "00"
+
+            date_time_str = (
+                    YEAR + " " + MONTH + " " + DAY + " " + HR + " " + MIN + " " + SEC
+            )
+            date_time_obj = datetime.strptime(date_time_str, '%Y %m %d %H %M %S')  # created to check if given date
+            # is acceptable
+            drbeg=date_time_obj 
+            year_beg = prtmet.get("YEAR")
+            mon_beg = prtmet.get("MONTH")
+            day_beg = prtmet.get("DAY")
+            hr_beg = prtmet.get("HR")
+            min_beg = prtmet.get("MIN")
+            sec_beg = prtmet.get("SEC")
+            
+            print("Please name date of the end of calculations")
+            EYEAR = input("Specify year (four numbers)")
+            EMONTH = input("Specify month (two numbers)")
+            EDAY = input("Specify day (two numbers)")
+            EHR = input("Specify hour (default: 00)") or "00"
+            EMIN = input("Specify minutes (default: 00)") or "00"
+            ESEC = input("Specify seconds (default: 00") or "00"
+
+            date_time_str = (
+                    EYEAR + " " + EMONTH + " " + EDAY + " " + EHR + " " + EMIN + " " + ESEC
+            )
+            date_time_obj2 = datetime.strptime(date_time_str, "%Y %m %d %H %M %S")
+            #drend=date_time_obj
+            #DR=drend-drbeg
+            #total_seconds = DR.total_seconds()
+            #hours = total_seconds // 3600
+        #    print(hours)
+           # DR=int(hours)
+            year_end = prtmet.get("EYEAR")
+            mon_end = prtmet.get("EMONTH")
+            day_end = prtmet.get("EDAY")
+            hr_end = prtmet.get("EHR")
+            min_end = prtmet.get("EMIN")
+            sec_end = prtmet.get("ESEC")
+            result["year_beg"] = year_beg
+            result["mon_beg"] = mon_beg
+            result["day_beg"] = day_beg
+            result["hr_beg"] = hr_beg
+            result["min_beg"] = min_beg
+            result["sec_beg"] = sec_beg
+            result["year_end"] = year_end
+            result["mon_end"] = mon_end
+            result["day_end"] = day_end
+            result["hr_end"] = hr_end
+            result["min_end"] = min_end
+            result["sec_end"] = sec_end
+            result["YEAR"] = YEAR
+            result["MONTH"] = MONTH
+            result["DAY"] = DAY
+            result["HR"] = HR
+            result["MIN"] = MIN
+            result["SEC"] = SEC
+            result["EYEAR"] = EYEAR
+            result["EMONTH"] = EMONTH
+            result["EDAY"] = EDAY
+            result["EHR"] = EHR
+            result["EMIN"] = EMIN
+            result["ESEC"] = ESEC
+            date_time_obj3=(date_time_obj2-date_time_obj)
+            date_time_obj3=date_time_obj3.total_seconds()
+            print(date_time_obj3)
+            print(date_time_obj3/3600)
+            result["DR"] = str((date_time_obj3/3600))
+            duration = prtmet.get("DR")
+            result["duration"] = duration
+
 
             return result
     except ValueError as Ve:
@@ -371,10 +535,10 @@ EHR = date_values["EHR"]
 EMIN = date_values["EMIN"]
 ESEC = date_values["ESEC"]
 DR = date_values["DR"]
+#duration = date_values["duration"]
+
+
 duration = date_values["duration"]
-
-
-
 
 # Function that allows user to decide whether they want to create new input file (while keeping the old) or to replace
 # the existing one
@@ -457,7 +621,7 @@ name_nf = dir_path[1]
 
 # Opening base input file
 
-with open(patht + name_of, "r") as file:
+with open(patht + name_of, "r",errors='ignore') as file:
     contents = file.read()
 
 # Finding dates and replacing them
